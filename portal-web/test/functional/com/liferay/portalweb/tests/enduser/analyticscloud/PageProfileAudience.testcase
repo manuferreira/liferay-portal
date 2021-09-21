@@ -31,6 +31,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8351 | Test Summary: Page profile audience card shows known and anonymous individuals as well as segmented/unsegmented individuals"
 	@priority = "5"
 	test ShowsKnownAnonymousIndividualsAsWellAsSegmentedUnsegmentedIndividuals {
+		property portal.upstream = "manu";
+
 		task ("Add page and Blog for interaction with the AC") {
 			ACUtils.addSiteAndPage();
 
