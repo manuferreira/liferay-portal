@@ -93,6 +93,10 @@ definition {
 		}
 
 		task ("View the segment criteria") {
+			ACNavigation.goToSegments();
+
+			ACSegments.accessSegment(segmentName = "New Segment Test");
+
 			ACSegments.viewSegmentCriteriaIndividualAttributes(attributeName = "createDate");
 
 			AssertElementNotPresent(
