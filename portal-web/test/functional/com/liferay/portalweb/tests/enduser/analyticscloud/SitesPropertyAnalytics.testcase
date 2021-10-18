@@ -120,6 +120,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8329 | Test Summary: Assert Chart ticks for Site Metrics standardized"
 	@priority = "3"
 	test AssertChartTicksSiteMetricsStandardized {
+		property portal.upstream = "manu";
+
 		task ("Get site assigned property name") {
 			var propertyName = ACDXPSettings.getAssignedPropertyName(siteName = "Site Name");
 		}
@@ -173,12 +175,13 @@ definition {
 
 			if ("${dateLength}" == "9" || "${dateLength}" == "10" || "${dateLength}" == "11") {
 				ACUtils.assertDatePattern(
-				date = "${date}",
-				format = "MMM d - d");
-			} else {
+					date = "${date}",
+					format = "MMM d - d");
+			}
+			else {
 				ACUtils.assertDatePattern(
-				date = "${date}",
-				format = "MMM d - MMM d");
+					date = "${date}",
+					format = "MMM d - MMM d");
 			}
 		}
 
