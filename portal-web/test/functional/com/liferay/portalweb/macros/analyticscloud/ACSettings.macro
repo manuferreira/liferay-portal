@@ -3,6 +3,10 @@ definition {
 	macro addCSVDataSource {
 		var n = "1";
 
+		if (!(isSet(index))) {
+			var index = "2";
+		}
+
 		ACSettings.goToDataSources();
 
 		Button.click(button = "Add Data Source");
@@ -36,41 +40,43 @@ definition {
 		Button.clickNext();
 
 		if (isSet(selectAnalyticsCloudField)) {
-			Button.click(button = "Select Analytics Cloud Field");
+			if (IsElementNotPresent(locator1 = "ACSettings#DATA_SOURCE_FIELD_NAME", key_FieldName = "${fieldName}", key_index = "${index}")) {
+				Button.click(button = "Select Analytics Cloud Field");
 
-			if (isSet(newField)) {
-				Button.click(button = "New Field");
+				if (isSet(newField)) {
+					Button.click(button = "New Field");
 
-				Type(
-					key_text = "New Field Name",
-					locator1 = "TextInput#ANY",
-					value1 = "${fieldName}");
+					Type(
+						key_text = "New Field Name",
+						locator1 = "TextInput#ANY",
+						value1 = "${fieldName}");
 
-				Button.click(button = "Select");
+					Button.click(button = "Select");
 
-				MenuItem.click(menuItem = "${fieldType}");
+					MenuItem.click(menuItem = "${fieldType}");
 
-				WaitForElementNotPresent(
-					key_text = "Create",
-					locator1 = "Button#ANY_DISABLED");
+					WaitForElementNotPresent(
+						key_text = "Create",
+						locator1 = "Button#ANY_DISABLED");
 
-				Button.click(button = "Create");
-			}
-			else {
-				if (isSet(fieldNameList)) {
-					for (var item : list "${fieldNameList}") {
-						ACUtils.searchBar(searchItem = "${item}");
-
-						MenuItem.click(menuItem = "${item}");
-
-						if (IsElementPresent(key_text = "Select Analytics Cloud Field",
-								locator1 = "Button#ANY")) {
-							Button.click(button = "Select Analytics Cloud Field");
-						}
-					}
+					Button.click(button = "Create");
 				}
 				else {
-					MenuItem.click(menuItem = "${fieldName}");
+					if (isSet(fieldNameList)) {
+						for (var item : list "${fieldNameList}") {
+							ACUtils.searchBar(searchItem = "${item}");
+
+							MenuItem.click(menuItem = "${item}");
+
+							if (IsElementPresent(key_text = "Select Analytics Cloud Field",
+									locator1 = "Button#ANY")) {
+								Button.click(button = "Select Analytics Cloud Field");
+							}
+						}
+					}
+					else {
+						MenuItem.click(menuItem = "${fieldName}");
+					}
 				}
 			}
 		}
@@ -502,6 +508,8 @@ definition {
 
 		while (IsElementPresent(locator1 = "ACSettings#ITEM_TABLE")) {
 			ACSettings.deleteDataSource();
+
+			Refresh();
 		}
 	}
 
