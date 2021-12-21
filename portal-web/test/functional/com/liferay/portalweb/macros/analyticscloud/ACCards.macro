@@ -191,7 +191,7 @@ definition {
 	}
 
 	macro viewTableEntryInfo {
-		AssertVisible(
+		AssertElementPresent(
 			column = "${column}",
 			entryInfo = "${entryInfo}",
 			entryName = "${entryName}",
