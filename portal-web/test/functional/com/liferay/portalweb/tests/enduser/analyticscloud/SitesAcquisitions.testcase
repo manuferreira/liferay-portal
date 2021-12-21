@@ -214,7 +214,7 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8346 | Test Summary: Assert Sites Acquisition card Channels highest session"
 	@priority = "3"
 	test AssertSitesAcquisitionCardChannelsHighestSession {
-		property portal.upstream = "quarantine";
+		property portal.upstream = "manu";
 
 		task ("Get site assigned property name") {
 			var propertyName = ACDXPSettings.getAssignedPropertyName(siteName = "Site Name");
@@ -354,7 +354,7 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8348 | Test Summary: Assert Sites Acquisition card Source|Medium highest session"
 	@priority = "3"
 	test AssertSitesAcquisitionCardSourceAndMediumHighestSession {
-		property portal.upstream = "quarantine";
+		property portal.upstream = "manu";
 
 		task ("Get site assigned property name") {
 			var propertyName = ACDXPSettings.getAssignedPropertyName(siteName = "Site Name");
@@ -366,7 +366,7 @@ definition {
 			var portalURL = StringUtil.replace("${portalURL}", ":8080", "");
 		}
 
-		task("Create a new user and add to AC") {
+		task ("Create a new user and add to AC") {
 			JSONUser.addUser(
 				userEmailAddress = "userea@liferay.com",
 				userFirstName = "userfn",
@@ -382,7 +382,7 @@ definition {
 				userLoginFullName = "userfn userln");
 		}
 
-		task("Navigate to site page with the new user") {
+		task ("Navigate to site page with the new user") {
 			ACUtils.navigateToSitePage(
 				pageName = "AC Page",
 				siteName = "Site Name");
