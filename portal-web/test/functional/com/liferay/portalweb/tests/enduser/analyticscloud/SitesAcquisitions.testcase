@@ -210,7 +210,7 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8346 | Test Summary: Assert Sites Acquisition card Channels highest session"
 	@priority = "3"
 	test AssertSitesAcquisitionCardChannelsHighestSession {
-		property portal.upstream = "quarantine";
+		property portal.upstream = "manu";
 
 		task ("View the site page") {
 			ACUtils.navigateToSitePage(
@@ -342,7 +342,7 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8348 | Test Summary: Assert Sites Acquisition card Source|Medium highest session"
 	@priority = "3"
 	test AssertSitesAcquisitionCardSourceAndMediumHighestSession {
-		property portal.upstream = "quarantine";
+		property portal.upstream = "manu";
 
 		task ("Get the portal URL") {
 			var portalURL = PropsUtil.get("portal.url");
@@ -350,22 +350,26 @@ definition {
 			var portalURL = StringUtil.replace("${portalURL}", ":8080", "");
 		}
 
+		task ("Create a new user and add to AC") {
+			JSONUser.addUser(
+				userEmailAddress = "userea@liferay.com",
+				userFirstName = "userfn",
+				userLastName = "userln",
+				userScreenName = "usersn");
+
+			ACDXPSettings.syncNewContactData();
+		}
+
 		task ("Sign out then sign in as Test Test") {
 			User.logoutAndLoginPG(
-				userLoginEmailAddress = "test@liferay.com",
-				userLoginFullName = "Test Test");
+				userLoginEmailAddress = "userea@liferay.com",
+				userLoginFullName = "userfn userln");
 		}
 
-		task ("Navigate to the new site via Applications Menu") {
-			ApplicationsMenu.gotoSite(site = "Site Name");
-		}
-
-		task ("View the site page") {
-			Page.viewCurrentPage(pageName = "AC Page");
-		}
-
-		task ("Wait for page loading") {
-			WaitForPageLoad();
+		task ("Navigate to site page with the new user") {
+			ACUtils.navigateToSitePage(
+				pageName = "AC Page",
+				siteName = "Site Name");
 		}
 
 		task ("Close session") {
