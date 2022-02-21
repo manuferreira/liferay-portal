@@ -483,7 +483,7 @@ definition {
 	test CanAddSegmentWithCustomFieldsForIndividuals {
 		property portal.upstream = "quarantine";
 
-		// AC Refactor: DXP User never appears
+		// AC Refactor: this test is related to personas.
 		// AC Refactor ticket: LRAC-9351
 
 		task ("Add a user custom field") {

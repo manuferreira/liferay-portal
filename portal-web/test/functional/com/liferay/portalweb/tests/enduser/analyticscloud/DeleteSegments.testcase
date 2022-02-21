@@ -361,7 +361,7 @@ definition {
 	test DeleteCustomFieldUsedSegmentResetData {
 		property portal.upstream = "quarantine";
 
-		// AC Refactor: This testcase fails due to a bug. Known User numbers do not appear.
+		// AC Refactor: this test is related to personas.
 		// AC Refactor ticket: LRAC-9300
 
 		task ("Get site assigned property name") {
