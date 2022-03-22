@@ -662,6 +662,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8125 | Test Summary: Web content list shows all web content in a list"
 	@priority = "5"
 	test ViewAllWebContentShownInAssetList {
+		property portal.upstream = "manu";
+
 		var assetNameList = "Web Content AC Title,Web Content AC Title 2,Web Content AC Title 3";
 
 		for (var layoutName : list "AC Page 2,AC Page 3") {
@@ -714,6 +716,8 @@ definition {
 	@description = "Web content visitor behavior card shows expected amount of views"
 	@priority = "5"
 	test VisitorBehaviorCardShowsExpectedAmountOfViewsInWC {
+		property portal.upstream = "manu";
+
 		task ("Connect DXP to Analytics Cloud and get the property name") {
 			var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");
 		}

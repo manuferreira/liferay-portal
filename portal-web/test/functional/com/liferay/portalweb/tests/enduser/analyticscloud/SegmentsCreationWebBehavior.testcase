@@ -275,6 +275,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-9222 | Test Summary: Create a Web Behavior since X days"
 	@priority = "4"
 	test CanCreateWebBehaviorSegmentSinceXdays {
+		property portal.upstream = "manu";
+
 		property test.name.skip.portal.instance = "SegmentsCreationWebBehavior#CanCreateWebBehaviorSegmentSinceXdays";
 
 		ACUtils.createWCAndAddToPage();

@@ -300,6 +300,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8121 | Test Summary: Assert clicking a form in the forms list navigates to the form overview page"
 	@priority = "5"
 	test CanNavigatesToFormsOverviewPage {
+		property portal.upstream = "manu";
+
 		Navigator.openURL();
 
 		var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");

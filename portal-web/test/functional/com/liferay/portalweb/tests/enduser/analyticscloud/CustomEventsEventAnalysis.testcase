@@ -181,6 +181,7 @@ definition {
 	@description = "Feature ID: LRAC-4266 | Automation ID: LRAC-10307 | Test Summary: Total Chart, Unique Chart and Average Chart data shown"
 	@priority = "5"
 	test CheckTotalAndUniqueAndAverageChartDataIsShown {
+		property portal.upstream = "manu";
 
 		// AC Refactor: It is not possible to assert the chart because the data takes some time to appear.
 
@@ -567,6 +568,8 @@ definition {
 	@description = "Feature ID: LRAC-4266 | Automation ID: LRAC-10295 | Test Summary: Search for events in different tabs"
 	@priority = "3"
 	test SearchEventsInDifferentTabs {
+		property portal.upstream = "manu";
+		
 		var defaultEventName = "pageViewed";
 
 		task ("Fill fields and create custom event") {

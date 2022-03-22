@@ -112,6 +112,8 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8282 | Test Summary: Anonymous converts to known"
 	@priority = "4"
 	test CanAnonymousIndividualsConvertsToKnownIndividuals {
+		property portal.upstream = "manu";
+		
 		var nameList = "ac";
 
 		task ("Connect Analytics Cloud to DXP") {
