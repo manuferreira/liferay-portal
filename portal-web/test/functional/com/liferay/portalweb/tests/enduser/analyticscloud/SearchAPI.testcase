@@ -104,17 +104,14 @@ definition {
 				siteName = "guest");
 		}
 
-		task ("Type keyword in search bar") {
+		task ("Go to the search bar and search for a keyword") {
 			SearchPortlets.searchEmbedded(searchTerm = "${keyword}");
 		}
 
-		task ("Run curl command to get keyword results") {
+		task ("Run curl command to get keyword results using languageId = en-US") {
 			ACApi.getSearchKeywords(
-				displayLanguageId = "${displayLanguageId}",
-				faroBackendURL = "${faroBackendURL}",
+				displayLanguageId = "${displayLanguageId1}",
 				groupId = "${groupId}",
-				osbAsahFaroBackendSS = "${osbAsahFaroBackendSS}",
-				osbAsahProjectId = "${osbAsahProjectId}",
 				page = "${page}",
 				size = "${size}",
 				sort = "${sort}");
@@ -123,6 +120,25 @@ definition {
 		task ("Assert response returns keyword") {
 			ACApi.assertSearchResponse(expected = "${keyword}");
 		}
+
+		task ("Assert response returns en-US") {
+			ACApi.assertGenericResponse(
+				apiPath = "search-keywords[0].displayLanguageId",
+				expected = "en-US");
+		}
+
+		task ("Run curl command to get keyword results using languageId = pt-BR") {
+			ACApi.getSearchKeywords(
+				displayLanguageId = "${displayLanguageId2}",
+				groupId = "${groupId}",
+				page = "${page}",
+				size = "${size}",
+				sort = "${sort}");
+		}
+
+		task ("Assert response returns empty") {
+			ACApi.assertSearchResponse(expected = "");
+	}
 	}
 
 }
