@@ -19,8 +19,6 @@ definition {
 			TestCase.setUpPortalInstance();
 
 			ACUtils.launchDXP();
-
-			JSONGroup.addGroup(groupName = "Site Name");
 		}
 
 		task ("Connect the DXP to AC") {
@@ -38,15 +36,14 @@ definition {
 		if ("${testPortalInstance}" == "true") {
 			PortalInstances.tearDownCP();
 		}
-		else {
-			JSONGroup.deleteGroupByName(groupName = "Site Name");
-		}
 	}
 
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12141 | Test Summary: Request search keywords using all parameters"
 	@priority = "3"
 	test RequestKeywordsUsingAllParameters {
+		property portal.upstream = "manu";
 		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingAllParameters";
+
 		var displayLanguageId = "en-US";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
 		var keyword = "all parameters";
@@ -80,13 +77,14 @@ definition {
 		task ("Assert response returns keyword") {
 			ACApi.assertSearchResponse(expected = "${keyword}");
 		}
-		}
+	}
 
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12143 | Test Summary: Fetch keywords with displayLanguageId parameter"
 	@priority = "3"
 	test RequestKeywordsUsingDisplayLanguageId {
 		property portal.upstream = "manu";
 		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingDisplayLanguageId";
+
 		var displayLanguageId1 = "en-US";
 		var displayLanguageId2 = "pt-BR";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
@@ -139,7 +137,7 @@ definition {
 
 		task ("Assert response returns empty") {
 			ACApi.assertSearchResponse(expected = "");
-	}
+		}
 	}
 
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12145 | Test Summary: Fetch keywords with page parameter"
@@ -147,6 +145,7 @@ definition {
 	test RequestKeywordsUsingPage {
 		property portal.upstream = "manu";
 		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingPage";
+
 		var displayLanguageId = "en-US";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
 		var firstKeyword = "workspace";
@@ -210,4 +209,5 @@ definition {
 			ACApi.assertSearchResponse(expected = "${firstKeyword}");
 		}
 	}
+
 }
