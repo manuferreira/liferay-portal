@@ -8,6 +8,14 @@ definition {
 			expected = "${expected}");
 	}
 
+	macro assertGenericResponse {
+		var actual = JSONUtil.getWithJSONPath("${apiResponse}", "$..${apiPath}");
+
+		TestUtils.assertEquals(
+			actual = "${actual}",
+			expected = "${expected}");
+	}
+
 	macro createNewExportSchedule {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
