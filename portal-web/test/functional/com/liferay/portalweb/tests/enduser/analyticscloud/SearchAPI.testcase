@@ -46,6 +46,7 @@ definition {
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12141 | Test Summary: Request search keywords using all parameters"
 	@priority = "3"
 	test RequestKeywordsUsingAllParameters {
+		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingAllParameters";
 		var displayLanguageId = "en-US";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
 		var keyword = "all parameters";
@@ -144,6 +145,7 @@ definition {
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12145 | Test Summary: Fetch keywords with page parameter"
 	@priority = "3"
 	test RequestKeywordsUsingPage {
+		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingPage";
 		var displayLanguageId = "en-US";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
 		var firstKeyword = "workspace";
