@@ -145,6 +145,7 @@ definition {
 	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12145 | Test Summary: Fetch keywords with page parameter"
 	@priority = "3"
 	test RequestKeywordsUsingPage {
+		property portal.upstream = "manu";
 		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingPage";
 		var displayLanguageId = "en-US";
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
