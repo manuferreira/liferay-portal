@@ -16,6 +16,22 @@ definition {
 			expected = "${expected}");
 	}
 
+	macro getAnalyticsConfiguration {
+		ServerAdministration.openServerAdmin();
+		
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendURL");
+
+		static var faroBackendURL = "${scriptValue}";
+		
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendSecuritySignature");
+
+		static var osbAsahFaroBackendSS = "${scriptValue}";
+
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsProjectId");
+
+		static var osbAsahProjectId = "${scriptValue}";
+	}
+
 	macro createNewExportSchedule {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
