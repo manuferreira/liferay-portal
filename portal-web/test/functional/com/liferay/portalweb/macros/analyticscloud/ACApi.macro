@@ -1,13 +1,5 @@
 definition {
 
-	macro assertSearchResponse {
-		var actual = JSONUtil.getWithJSONPath("${apiResponse}", "$..search-keywords[0].keywords");
-
-		TestUtils.assertEquals(
-			actual = "${actual}",
-			expected = "${expected}");
-	}
-
 	macro assertGenericResponse {
 		var actual = JSONUtil.getWithJSONPath("${apiResponse}", "$..${apiPath}");
 
@@ -16,20 +8,12 @@ definition {
 			expected = "${expected}");
 	}
 
-	macro getAnalyticsConfiguration {
-		ServerAdministration.openServerAdmin();
-		
-		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendURL");
+	macro assertSearchResponse {
+		var actual = JSONUtil.getWithJSONPath("${apiResponse}", "$..search-keywords[0].keywords");
 
-		static var faroBackendURL = "${scriptValue}";
-		
-		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendSecuritySignature");
-
-		static var osbAsahFaroBackendSS = "${scriptValue}";
-
-		ACApi.getSearchHeaderValues(header = "liferayAnalyticsProjectId");
-
-		static var osbAsahProjectId = "${scriptValue}";
+		TestUtils.assertEquals(
+			actual = "${actual}",
+			expected = "${expected}");
 	}
 
 	macro createNewExportSchedule {
@@ -57,6 +41,22 @@ definition {
 		return "${apiResponse}";
 	}
 
+	macro getAnalyticsConfiguration {
+		ServerAdministration.openServerAdmin();
+
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendURL");
+
+		static var faroBackendURL = "${scriptValue}";
+
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendSecuritySignature");
+
+		static var osbAsahFaroBackendSS = "${scriptValue}";
+
+		ACApi.getSearchHeaderValues(header = "liferayAnalyticsProjectId");
+
+		static var osbAsahProjectId = "${scriptValue}";
+	}
+
 	macro getSearchHeaderValues {
 		var script = '''
 			    out.println(com.liferay.portal.util.PrefsPropsUtil.getPreferences(com.liferay.portal.kernel.service.CompanyServiceUtil.getCompanies()[0].getCompanyId(), false).getMap().get("${header}")[0]);
@@ -66,9 +66,7 @@ definition {
 			language = "Groovy",
 			script = "${script}");
 
-		var scriptValue = selenium.getText("ServerAdministrationScript#OUTPUT_FIELD");
-
-		return "${scriptValue}";
+		static var scriptValue = selenium.getText("ServerAdministrationScript#OUTPUT_FIELD");
 	}
 
 	macro getSearchKeywords {
