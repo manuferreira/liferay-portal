@@ -53,20 +53,49 @@ definition {
 		var size = "10";
 		var sort = "counts,desc";
 
-		task ("Go to Server Administration") {
-			ServerAdministration.openServerAdmin();
+		task ("Go to DXP and get analytics configuration") {
+			ACApi.getAnalyticsConfiguration();
 		}
 
-		task ("Get Faro Backend URL") {
-			var faroBackendURL = ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendURL");
+		task ("Go to Site Page") {
+			ACUtils.navigateToSitePage(
+				pageName = "Home",
+				siteName = "guest");
 		}
 
-		task ("Get OSB-Asah-Faro-Backend-Security-Signature") {
-			var osbAsahFaroBackendSS = ACApi.getSearchHeaderValues(header = "liferayAnalyticsFaroBackendSecuritySignature");
+		task ("Type keyword in search bar") {
+			SearchPortlets.searchEmbedded(searchTerm = "${keyword}");
 		}
 
-		task ("Get OSB-Asah-Project-Id") {
-			var osbAsahProjectId = ACApi.getSearchHeaderValues(header = "liferayAnalyticsProjectId");
+		task ("Run curl command to get keyword results") {
+			ACApi.getSearchKeywords(
+				displayLanguageId = "${displayLanguageId}",
+				groupId = "${groupId}",
+				page = "${page}",
+				size = "${size}",
+				sort = "${sort}");
+		}
+
+		task ("Assert response returns keyword") {
+			ACApi.assertSearchResponse(expected = "${keyword}");
+		}
+		}
+
+	@description = "Feature ID: LRAC-12058 | Automation ID: LRAC-12143 | Test Summary: Fetch keywords with displayLanguageId parameter"
+	@priority = "3"
+	test RequestKeywordsUsingDisplayLanguageId {
+		property portal.upstream = "manu";
+		property test.name.skip.portal.instance = "SearchAPI#RequestKeywordsUsingDisplayLanguageId";
+		var displayLanguageId1 = "en-US";
+		var displayLanguageId2 = "pt-BR";
+		var groupId = JSONGroupSetter.setGroupId(groupName = "Guest");
+		var keyword = "cloud";
+		var sort = "lastModifiedDate,desc";
+		var page = "0";
+		var size = "10";
+
+		task ("Go to DXP and get analytics configuration") {
+			ACApi.getAnalyticsConfiguration();
 		}
 
 		task ("Go to Site Page") {
