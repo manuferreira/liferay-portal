@@ -21,7 +21,7 @@ definition {
 			ACUtils.launchDXP();
 		}
 
-		task ("Add a new site") {sfgdfgdsfgfdbgfhfghjfjjhhh
+		task ("Add a new site") {sfgdfgdsfgfdbgfhfghjfjjhhhfdg
 			HeadlessSite.addSite(siteName = "Site Name"); //teste commitaaaaaaaaaaadfsdffgfdggsdgsdgsfhisdgsighsikdhgdfghhtrhggf
 		}
 	}
